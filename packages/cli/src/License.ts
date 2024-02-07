@@ -205,7 +205,9 @@ export class License {
 	}
 
 	isFeatureEnabled(feature: BooleanLicenseFeature) {
-		return this.manager?.hasFeatureEnabled(feature) ?? false;
+			return feature === LICENSE_FEATURES.API_DISABLED || feature === LICENSE_FEATURES.SHOW_NON_PROD_BANNER
+			? false
+			: true;
 	}
 
 	isSharingEnabled() {
