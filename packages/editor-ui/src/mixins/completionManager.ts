@@ -3,6 +3,9 @@ import { ExpressionExtensions } from 'n8n-workflow';
 import type { EditorView, ViewUpdate } from '@codemirror/view';
 
 import { expressionManager } from './expressionManager';
+import { mapStores } from 'pinia';
+import { useNDVStore } from '@/stores/ndv.store';
+import { useRootStore } from '@/stores/n8nRoot.store';
 
 export const completionManager = defineComponent({
 	mixins: [expressionManager],
@@ -12,6 +15,7 @@ export const completionManager = defineComponent({
 		};
 	},
 	computed: {
+		...mapStores(useNDVStore, useRootStore),
 		expressionExtensionsCategories() {
 			return ExpressionExtensions.reduce<Record<string, string | undefined>>((acc, cur) => {
 				for (const fnName of Object.keys(cur.functions)) {
@@ -27,6 +31,8 @@ export const completionManager = defineComponent({
 			const completionTx = viewUpdate.transactions.find((tx) => tx.isUserEvent('input.complete'));
 
 			if (!completionTx) return;
+
+			this.ndvStore.setAutocompleteOnboarded();
 
 			let completion = '';
 			let completionBase = '';
