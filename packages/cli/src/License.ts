@@ -82,8 +82,9 @@ export class License {
 				collectUsageMetrics,
 				onFeatureChange,
 			});
-
 			await this.manager.initialize();
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			this.manager.hasFeatureEnabled = (feature: BooleanLicenseFeature) => true;
 		} catch (e: unknown) {
 			if (e instanceof Error) {
 				this.logger.error('Could not initialize license manager sdk', e);

@@ -6,7 +6,7 @@
     "build": "pnpm type-check && pnpm build:vite && pnpm run build:individual && npm run build:prepare",
     "build:full": "pnpm type-check && pnpm build:vite && pnpm build:vite:full && pnpm run build:individual && npm run build:prepare",
     "build:vite": "vite build",
-    "build:vite:full": "INCLUDE_VUE=true vite build",
+    "build:vite:full": "vite build",
     "build:individual": "unbuild",
     "build:prepare": "node scripts/postbuild.js",
     "build:pack": "node scripts/pack.js",
